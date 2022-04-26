@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-deployment
+  name: api-deployment
   labels:
-    app: hello-app
+    app: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-app
+      app: app
   template:
     metadata:
       labels:
-        app: hello-app
+        app: app
     spec:
       containers:
-        - name: hellos
-          image: ubuntu:18.04
-          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        - name: apis
+          image: jbolivar101/final:latest
+          command: ['python3', 'app.py']
