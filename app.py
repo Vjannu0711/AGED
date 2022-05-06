@@ -5,12 +5,14 @@ import pandas as pd
 
 app = Flask(__name__)
 
-
+DF = {}
 @app.route('/read_data', methods=['POST'])
 def data_read():
     """
     This route reads the CSV data file and sends a confirmation message to the user that the file has been read.
     """
+    global DF
+
     fields = ['country','year','coal_production','electricity_generation','biofuel_electricity','coal_electricity','fossil_electricity','gas_electricity','hydro_electricity','nuclear_electricity','oil_electricity','renewables_electricity','oil_production','population','gdp','solar_electricity','wind_electricity','energy_per_gdp','energy_per_capita','fossil_share_elec','gas_share_elec','gas_production','low_carbon_share_elec']
     DF = pd.read_csv("owid-energy-data.csv", usecols=fields)
     #Filter on year >=1985
@@ -35,3 +37,15 @@ def data_read():
 #    """
 #    DF.to_csv(oecd, encoding='utf-8', index=False)
 #    return 'file has been created'
+
+@app.route('/countries',methods=['GET'])
+def all_Countries():
+    logging.info("Gathering all countries...")
+    COUNTRIES = {}
+    for i in range(len(DF['visible_passes']['visible_pass'])):
+        spec_country = DF['visible_passes']['visible_pass'][i]['country']
+        if spec_country in COUNTRIES:
+            COUNTRIES[spec_country] += 1
+        else:
+            COUNTRIES[spec_country] = 1
+    return 
