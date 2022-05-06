@@ -80,21 +80,3 @@ def all_cities(country, years):
                     FIELDS[spec_fields]=1
     return FIELDS
 
-@app.route('/countries/<country>/regions/<regions>/cities/<cities>',methods=['GET'])
-def specific_City(country, regions, cities):
-    logging.info("Gathering info on /"+cities)
-    list_of_cities = []
-    list_city_data = ['spacecraft', 'sighting_date','duration_minutes','max_elevation','enters',\
-'exits','utc_offset','utc_time', 'utc_date']
-    for i in range(len(ISS_Sighting_Data['visible_passes']['visible_pass'])):
-        spec_country = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['country']
-        if country == spec_country:
-            spec_region = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['region']
-            if regions == spec_region:
-                spec_city = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['city']
-                if cities == spec_city:
-                    city_dict = {}
-                    for j in list_city_data:
-                        city_dict[j] = ISS_Sighting_Data['visible_passes']['visible_pass'][i][j]
-                    list_of_cities.append(city_dict)
-    return json.dumps(list_of_cities, indent=2)
