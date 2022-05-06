@@ -42,10 +42,24 @@ def data_read():
 def all_Countries():
     logging.info("Gathering all countries...")
     COUNTRIES = {}
-    for i in range(len(DF['visible_passes']['visible_pass'])):
-        spec_country = DF['visible_passes']['visible_pass'][i]['country']
+    for i in range(len(DF[Countries])):
+        spec_country = DF[Countries][i]['country']
         if spec_country in COUNTRIES:
             COUNTRIES[spec_country] += 1
         else:
             COUNTRIES[spec_country] = 1
     return 
+
+@app.route('/countries/<country>/fields',methods=['GET'])
+def all_fields(country):
+    logging.info("Gathering all fields in /"+country)
+    FIELDS = {}
+    for i in range(len(DF[Countries])):
+        spec_country = DF[Countries][i]['country']
+        if country == spec_country:
+            spec_field = DF[Countries][i]['field']
+            if spec_field in FIELDS:
+                FIELDS[spec_field] += 1
+            else:
+                FIELDS[spec_field] = 1
+    return FIELDS
