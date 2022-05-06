@@ -80,3 +80,14 @@ def all_cities(country, years):
                     FIELDS[spec_fields]=1
     return FIELDS
 
+@app.route('/update/<country>/<year>', method=['PUT'])
+def update(country, year)
+
+    start = request.args.get('start')
+    rd.hset('xxx', 'coal_prod_change_pct', value)
+
+@app.route('/delete/<country>/<year>' method=['PUT'])
+def delete(country, year)
+
+    rd.delete(f'{country}-{year}')
+
