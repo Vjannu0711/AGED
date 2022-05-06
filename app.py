@@ -50,16 +50,51 @@ def all_Countries():
             COUNTRIES[spec_country] = 1
     return 
 
-@app.route('/countries/<country>/fields',methods=['GET'])
+@app.route('/countries/<country>/years',methods=['GET'])
 def all_fields(country):
     logging.info("Gathering all fields in /"+country)
+    YEARS = {}
+    for i in range(len(DF[Countries])):
+        spec_country = DF[Countries][i]['country']
+        if country == spec_country:
+            spec_year = DF[Countries][i]['years']
+            if spec_year in YEARS:
+                YEARS[spec_year] += 1
+            else:
+                YEARS[spec_year] = 1
+    return YEARS
+
+@app.route('/countries/<country>/year/<years>/fields',methods=['GET'])
+def all_cities(country, years):
+    logging.info("Gathering all cities in /"+regions)
     FIELDS = {}
     for i in range(len(DF[Countries])):
         spec_country = DF[Countries][i]['country']
         if country == spec_country:
-            spec_field = DF[Countries][i]['field']
-            if spec_field in FIELDS:
-                FIELDS[spec_field] += 1
-            else:
-                FIELDS[spec_field] = 1
+            spec_year = DF[Countries][i]['years']
+            if year == spec_year:
+                spec_fields = Df[Countries][i]['fields']
+                if spec_fields in FIELDS:
+                    FIELDS[spec_fields] +=1
+                else:
+                    FIELDS[spec_fields]=1
     return FIELDS
+
+@app.route('/countries/<country>/regions/<regions>/cities/<cities>',methods=['GET'])
+def specific_City(country, regions, cities):
+    logging.info("Gathering info on /"+cities)
+    list_of_cities = []
+    list_city_data = ['spacecraft', 'sighting_date','duration_minutes','max_elevation','enters',\
+'exits','utc_offset','utc_time', 'utc_date']
+    for i in range(len(ISS_Sighting_Data['visible_passes']['visible_pass'])):
+        spec_country = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['country']
+        if country == spec_country:
+            spec_region = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['region']
+            if regions == spec_region:
+                spec_city = ISS_Sighting_Data['visible_passes']['visible_pass'][i]['city']
+                if cities == spec_city:
+                    city_dict = {}
+                    for j in list_city_data:
+                        city_dict[j] = ISS_Sighting_Data['visible_passes']['visible_pass'][i][j]
+                    list_of_cities.append(city_dict)
+    return json.dumps(list_of_cities, indent=2)
