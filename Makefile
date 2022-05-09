@@ -1,72 +1,75 @@
 NSPACE="jbolivar"
-APP="energy_data"
-VER="0.1.0"
-RPORT="6379"
+APP="test"
+VER="0.1"
+RPORT="6789"
 FPORT="5004"
 UID="876633"
 GID="816966"
 
+list-targets:
+        @$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+
 
 list:
-	- docker images | grep "jbolivar"
-	- docker ps -a | grep ${NAME}
+        docker ps -a | grep ${NSPACE} || true
+        docker images | grep ${NSPACE} || true
 
-build-api:
-	docker build -t jbolivar101/${VER}_api:0.1.0 -f docker/Dockerfile.api .
 
 build-db:
-	docker pull redis:6.2.3
+        docker pull redis:6
 
-build-wrk:	
-	docker build -t ${NSPACE}/${APP}-wrk:${VER} \
+build-api:
+        docker build -t ${NSPACE}/${APP}-api:${VER} \
+                     -f docker/Dockerfile.api \
+                     ./
+
+build-wrk:
+        docker build -t ${NSPACE}/${APP}-wrk:${VER} \
                      -f docker/Dockerfile.wrk \
                      ./
 
-	
-
-run-api:build-api
-	docker run --name ${NSPACE}-api \
-                   --network ${NSPACE}-network-test \
-                   --env REDIS_IP=${NSPACE}-db \
-                   -p ${FPORT}:5000 \
-                   -d \
-                   ${NSPACE}/${APP}-api:${VER} 
-	
 
 run-db: build-db
-	docker run --name ${NSPACE}-db \
-                   --network ${NSPACE}-network-test \
+        docker run --name ${NSPACE}-db \
                    -p ${RPORT}:6379 \
                    -d \
                    -u ${UID}:${GID} \
                    -v ${PWD}/data/:/data \
-                   redis:6.2.3
+                   redis:6 \
+                   --save 1 1
+
+run-api: build-api
+        RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
+        docker run --name ${NSPACE}-api \
+                   --env REDIS_IP=${RIP} \
+                   -p ${FPORT}:5000 \
+                   -d \
+                   ${NSPACE}/${APP}-api:${VER}
 
 run-wrk: build-wrk
-	docker run --name ${NSPACE}-wrk \
-                   --network ${NSPACE}-network-test \
-                   --env REDIS_IP=${NSPACE}-db \
+        RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
+        docker run --name ${NSPACE}-wrk \
+                   --env REDIS_IP=${RIP} \
                    -d \
                    ${NSPACE}/${APP}-wrk:${VER}
 
 
-rm-api:
-	docker stop ${NSPACE}-api && docker rm -f ${NSPACE}-api
+clean-db:
+        docker stop ${NSPACE}-db && docker rm -f ${NSPACE}-db || true
 
-rm-db:
-	docker stop ${NSPACE}-db && docker rm -f ${NSPACE}-db
+clean-api:
+        docker stop ${NSPACE}-api && docker rm -f ${NSPACE}-api || true
 
-rm-wrk:
-	docker stop ${NSPACE}-wrk && docker rm -f ${NSPACE}-wrk
+clean-wrk:
+        docker stop ${NSPACE}-wrk && docker rm -f ${NSPACE}-wrk || true
 
-cycle-api: rm-api build-api run-api
 
-cycle-db: rm-db build-db run-db
 
-cycle-wrk: rm-wrk build-wrk run-wrk
+build-all: build-db build-api build-wrk
 
-compose-up:
-	VER=${VER} docker-compose -f docker/docker-compose.yml -p ${NSPACE} up -d --build
+run-all: run-db run-api run-wrk
 
-compose-down:
-	VER=${VER} docker-compose -f docker/docker-compose.yml -p ${NSPACE} down
+clean-all: clean-db clean-api clean-wrk
+
+
+all: clean-all build-all run-all
