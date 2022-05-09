@@ -12,7 +12,7 @@ def read():
         DF = csv.DictReader(f)
         for row in DF:
            # data.append(dict(row))      #Set keys per dictionary redis
-            rd.hset(f"{dict(row)['country']}-{dict(row)['year']}",mapping=(dict(row))
+            rd.hset(f"{dict(row)['country']}-{dict(row)['year']}", mapping=dict(row))
         return('Data gathered')
 
 @app.route('/countries',methods=['GET'])
