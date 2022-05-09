@@ -3,34 +3,34 @@ APP="test"
 VER="0.1"
 RPORT="6789"
 FPORT="5004"
-UID="876633"
-GID="816966"
+UID="874023"
+GID="823583"
 
 list-targets:
-        @$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 
 list:
-        docker ps -a | grep ${NSPACE} || true
-        docker images | grep ${NSPACE} || true
+	docker ps -a | grep ${NSPACE} || true
+	docker images | grep ${NSPACE} || true
 
 
 build-db:
-        docker pull redis:6
+	docker pull redis:6
 
 build-api:
-        docker build -t ${NSPACE}/${APP}-api:${VER} \
+	docker build -t ${NSPACE}/${APP}-api:${VER} \
                      -f docker/Dockerfile.api \
                      ./
 
 build-wrk:
-        docker build -t ${NSPACE}/${APP}-wrk:${VER} \
+	docker build -t ${NSPACE}/${APP}-wrk:${VER} \
                      -f docker/Dockerfile.wrk \
                      ./
 
 
 run-db: build-db
-        docker run --name ${NSPACE}-db \
+	docker run --name ${NSPACE}-db \
                    -p ${RPORT}:6379 \
                    -d \
                    -u ${UID}:${GID} \
@@ -39,29 +39,29 @@ run-db: build-db
                    --save 1 1
 
 run-api: build-api
-        RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
-        docker run --name ${NSPACE}-api \
+	RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
+	docker run --name ${NSPACE}-api \
                    --env REDIS_IP=${RIP} \
                    -p ${FPORT}:5000 \
                    -d \
-                   ${NSPACE}/${APP}-api:${VER}
+                   ${NSPACE}/${APP}-api:${VER} 
 
 run-wrk: build-wrk
-        RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
-        docker run --name ${NSPACE}-wrk \
+	RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
+	docker run --name ${NSPACE}-wrk \
                    --env REDIS_IP=${RIP} \
                    -d \
-                   ${NSPACE}/${APP}-wrk:${VER}
+                   ${NSPACE}/${APP}-wrk:${VER} 
 
 
 clean-db:
-        docker stop ${NSPACE}-db && docker rm -f ${NSPACE}-db || true
+	docker stop ${NSPACE}-db && docker rm -f ${NSPACE}-db || true
 
 clean-api:
-        docker stop ${NSPACE}-api && docker rm -f ${NSPACE}-api || true
+	docker stop ${NSPACE}-api && docker rm -f ${NSPACE}-api || true
 
 clean-wrk:
-        docker stop ${NSPACE}-wrk && docker rm -f ${NSPACE}-wrk || true
+	docker stop ${NSPACE}-wrk && docker rm -f ${NSPACE}-wrk || true
 
 
 
@@ -72,4 +72,4 @@ run-all: run-db run-api run-wrk
 clean-all: clean-db clean-api clean-wrk
 
 
-all: clean-all build-all run-all
+all: clean-all build-all run-all 

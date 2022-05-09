@@ -44,11 +44,11 @@ def country_specs(country, year):
 
 @app.route('/countries/<country>/<field>',methods=['GET'])
 def countries_field(country, field):
+    spec_data = []
     for d in data:
         fs = str(field)
         spec_country = d['country']
         if country == spec_country:
-            spec_data = []
             spec_data.append(d[fs])
     return(jsonify(spec_data))
 
@@ -64,7 +64,6 @@ def delete_CountryYear(country, year):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
-    return(f'This {country}and {year} has been deleted')
 
 
 if __name__ == '__main__':
