@@ -3,9 +3,10 @@ import csv
 import logging
 import os
 import redis
+import json
 
 redis_ip=os.environ.get('REDIS_IP')
-rd = redis.Redis(host=redis_ip, port=6379, db=0)
+rd = redis.Redis(host=redis_ip, port=6789, db=0)
 
 app = Flask(__name__)
 
@@ -25,13 +26,15 @@ def read():
 def all_Countries():
     logging.info("Gathering all countries...")
     countries_list = []
-    unique_countries_list = []
+    #unique_countries_list = []
 
-    for d in data:                       #Call on specific key
-        countries_list.append(d['country'])
+    for d in rd.keys():                       #Call on specific key
+        #countries_list.append(d['country'])
+        countries_list.append(rd.hget(d, 'country').decode('utf-8'))
+    return json.dumps(countries_list, indent=2)
 
-    unique_countries_list = list(set(countries_list))
-    return(jsonify(unique_countries_list))
+    #unique_countries_list = list(set(countries_list))
+    #return(jsonify(unique_countries_list))
 
 @app.route('/countries/<country>/<year>',methods=['GET'])
 def country_specs(country, year):
@@ -60,10 +63,6 @@ def countries_field(country, field):
 def delete_CountryYear(country, year):
     rd.delete(f'{country}-{year}')
     return(f'This {country}and {year} has been deleted')
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
 
 
 if __name__ == '__main__':
