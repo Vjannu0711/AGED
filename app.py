@@ -1,5 +1,5 @@
 # IMPORT MODULES (SETUP)
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import csv
 import logging
 import os
@@ -37,27 +37,28 @@ def all_Countries():
 def country_specs(country, year):
     key = f'{country}-{year}'
     return json.dumps(rd.hgetall(key), indent=2)
-    
+
 # SHOW THE TREND OF A CERTAIN FIELD OVERTIME FOR SPECIFIC COUNTRY
-@app.route('/countries/<country>/<field>',methods=['GET'])
-def countries_field(country:str, field:str):
+@app.route('/trend/<country>/<field>',methods=['GET'])
+def countries_field(country, field):
     trend = []
-    for year in range(2009, 2010):
+    start = int(request.args.get('start', 1900))
+    end = int(request.args.get('end', 2020))+1
+    for year in range(start, end):
         result = rd.hget(f'{country}-{year}', field)
         if not result:
             result = 'No Data'
         trend.append(f'{year} - {result}')
-        #trend.append(str(year) + ' ' + rd.hget(f'{country}-{year}', field))
     return json.dumps(trend, indent=2)
 
 # CREATE (CRUD)
-@app.route('/create/<country>/<year>', methods=['CREATE'])
+@app.route('/create/<country>/<year>', methods=['POST'])
 def create_CountryYear(country, year):
     rd.hset(f'{country}-{year}', mapping={'country': country, 'year': year})
     return(f'A new entry with your desired country and year has been entered into the system.')
 
 # UPDATE (CRUD)
-@app.route('/update/<country>/<year>/<field>/<newvalue>', methods =['UPDATE'])
+@app.route('/update/<country>/<year>/<field>/<newvalue>', methods =['PUT'])
 def update_info(country:str, year:str, field:str, newvalue:float):
     rd.hset(f'{country}-{year}', f'{field}', f'{newvalue}')
     return(f'The new value has been added to the specified field.')
