@@ -1,5 +1,5 @@
 NSPACE="jbolivar"
-APP="test"
+APP="app"
 VER="0.1"
 RPORT="6789"
 FPORT="5004"
@@ -41,7 +41,7 @@ run-db: build-db
 run-api: build-api
 	RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
 	docker run --name ${NSPACE}-api \
-                   --env REDIS_IP=${RIP} \
+                   --env REDIS_IP=$${RIP} \
                    -p ${FPORT}:5000 \
                    -d \
                    ${NSPACE}/${APP}-api:${VER} 
@@ -49,7 +49,7 @@ run-api: build-api
 run-wrk: build-wrk
 	RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
 	docker run --name ${NSPACE}-wrk \
-                   --env REDIS_IP=${RIP} \
+                   --env REDIS_IP=$${RIP} \
                    -d \
                    ${NSPACE}/${APP}-wrk:${VER} 
 

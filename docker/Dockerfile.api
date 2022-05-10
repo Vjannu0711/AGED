@@ -1,11 +1,11 @@
 FROM python:3.9
 
-RUN mkdir /test
+RUN mkdir /app
 
-WORKDIR /test
+WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
-COPY . /test
+COPY . /app
 
 ENTRYPOINT ["python"]
-CMD ["test.py"]
+CMD ["app.py"]
