@@ -6,7 +6,7 @@ import redis
 import json
 
 redis_ip=os.environ.get('REDIS_IP')
-rd = redis.Redis(host=redis_ip, port=6789, db=0)
+rd = redis.Redis(host=redis_ip, port=6789, db=0, decode_responses=True)
 
 app = Flask(__name__)
 
@@ -26,34 +26,26 @@ def read():
 def all_Countries():
     logging.info("Gathering all countries...")
     countries_list = []
-    #unique_countries_list = []
-
-    for d in rd.keys():                       #Call on specific key
-        #countries_list.append(d['country'])
+    for d in rd.keys():                      
         countries_list.append(rd.hget(d, 'country').decode('utf-8'))
     return json.dumps(countries_list, indent=2)
 
-    #unique_countries_list = list(set(countries_list))
-    #return(jsonify(unique_countries_list))
-
 @app.route('/countries/<country>/<year>',methods=['GET'])
 def country_specs(country, year):
-    for d in data:
-        spec_year = d['year']
-        spec_country = d['country']
-        if country == spec_country and year == spec_year:
-            return(d)
-        return(True)
+    key = f'{country}-{year}'
+    return json.dumps(rd.hgetall(key), indent=2)
 
 @app.route('/countries/<country>/<field>',methods=['GET'])
 def countries_field(country, field):
-    spec_data = []
-    for d in data:
-        fs = str(field)
-        spec_country = d['country']
-        if country == spec_country:
-            spec_data.append(d[fs])
-    return(jsonify(spec_data))
+    #spec_data = []
+    #for d in data:
+    #    fs = str(field)
+    #    spec_country = d['country']
+    #    if country == spec_country:
+    #        spec_data.append(d[fs])
+    #return(jsonify(spec_data))
+    key = f'{country}'
+    return json.dump(rd.hgetall(key),indent=3)
 
 
 #@app.route('/create/<country>/<year>', methods=['CREATE'])
