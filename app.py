@@ -5,6 +5,7 @@ import logging
 import os
 import redis
 import json
+from jobs import rd, q, add_job, get_job_by_id, jdb
 
 # SET UP REDIS
 redis_ip=os.environ.get('REDIS_IP')
@@ -71,6 +72,38 @@ def delete_CountryYear(country, year):
     rd.delete(key)
     return(f'All info for {country} and the year {year} has been deleted.\n')
 
+# ANALYSIS API
+@app.route('/jobs', methods=['POST', 'GET'])
+def jobs_api():
+    """
+    API route for creating a new job to do some analysis. This route accepts a JSON payload
+    describing the job to be created.
+    """
+    if request.method == 'POST':
+        try:
+            job = request.get_json(force=True)
+        except Exception as e:
+            return json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
+    
+        return json.dumps(add_job(job['country'], job['field'], job['start'], job['end']), indent=2) + '\n'
+
+    elif request.method == 'GET':
+        redis_dict = {}
+        for key in jdb.keys():
+            redis_dict[str(key)] = {}
+            redis_dict[str(key)]['datetime'] = jdb.hget(key, 'datetime')
+            redis_dict[str(key)]['status'] = jdb.hget(key, 'status')
+        return json.dumps(redis_dict, indent=4) + '\n' + """
+  To submit a job, do the following:
+  curl localhost:5004/jobs -X POST -d '{"country":<country>, "field":<field>, "start":<year>, "end":<year>}' -H "Content-Type: application/json"
+"""
+# CHECK STATUS OF SUBMITTED JOB
+@app.route('/jobs/<job_uuid>', methods=['GET'])
+def get_job_result(job_uuid: str):
+    """
+    API route for checking on the status of a submitted job
+    """
+    return json.dumps(get_job_by_id(job_uuid), indent=2) + '\n'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

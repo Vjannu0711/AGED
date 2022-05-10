@@ -37,6 +37,7 @@ def _instantiate_job(jid, country, field, status, start, end):
     """
     if type(jid) == str:
         return {'id': jid,
+                'datetime': str(datetime.now()),
                 'country': country,
                 'field': field,
                 'status': status,
@@ -44,6 +45,7 @@ def _instantiate_job(jid, country, field, status, start, end):
                 'end': end
                }
     return {'id': jid.decode('utf-8'),
+            'datetime': str(datetime.now()),
             'country': country.decode('utf-8'),
             'field': field.decode('utf-8'),
             'status': status.decode('utf-8'),
@@ -64,7 +66,7 @@ def _queue_job(jid):
     return
 
 # SUBMITTED JOB
-def add_job(start, end, status="submitted"):
+def add_job(country, field, start, end, status="submitted"):
     """Add a job to the redis queue."""
     jid = _generate_jid()
     job_dict = _instantiate_job(jid, country, field, status, start, end)
