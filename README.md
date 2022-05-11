@@ -301,6 +301,7 @@ We can see the change in the total real gross domestic product, inflation-adjust
 Here is another example of a job input and the resulting plot from this job:
 `curl localhost:5004/jobs -X POST -d '{"country":"United States", "field":"renewables_consumption", "start":"1970", "end":"20
 20"}' -H "Content-Type: application/json"`
+
 ![output2](https://user-images.githubusercontent.com/69823871/167905267-2c1f25e6-fc10-4bdf-b63c-bb8c07083722.png)
 
 We can see the overall change in the consumption of renewables of the United States from 1970 to 2020 measured in terawatt-hours.
