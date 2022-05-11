@@ -2,20 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment
+  name: aged-api-deployment
   labels:
-    app: app
+    app: aged-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app
+      app: aged-api
   template:
     metadata:
       labels:
-        app: app
+        app: aged-api
     spec:
       containers:
-        - name: apis
-          image: jbolivar101/final:latest
+        - name: aged-api
+          imagePullPolicy: Always
+          image: jbolivar101/app-api:0.1
           command: ['python3', 'app.py']

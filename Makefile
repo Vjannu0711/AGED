@@ -19,12 +19,12 @@ build-db:
 	docker pull redis:6
 
 build-api:
-	docker build -t ${NSPACE}/${APP}-api:${VER} \
+	docker build -t ${NSPACE}101/${APP}-api:${VER} \
                      -f docker/Dockerfile.api \
                      ./
 
 build-wrk:
-	docker build -t ${NSPACE}/${APP}-wrk:${VER} \
+	docker build -t ${NSPACE}101/${APP}-wrk:${VER} \
                      -f docker/Dockerfile.wrk \
                      ./
 
@@ -44,14 +44,14 @@ run-api: build-api
                    --env REDIS_IP=$${RIP} \
                    -p ${FPORT}:5000 \
                    -d \
-                   ${NSPACE}/${APP}-api:${VER} 
+                   ${NSPACE}101/${APP}-api:${VER} 
 
 run-wrk: build-wrk
 	RIP=$$(docker inspect ${NSPACE}-db | grep \"IPAddress\" | head -n1 | awk -F\" '{print $$4}') && \
 	docker run --name ${NSPACE}-wrk \
                    --env REDIS_IP=$${RIP} \
                    -d \
-                   ${NSPACE}/${APP}-wrk:${VER} 
+                   ${NSPACE}101/${APP}-wrk:${VER} 
 
 
 clean-db:
