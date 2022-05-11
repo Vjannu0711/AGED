@@ -212,6 +212,8 @@ Output for this command should look something like this which shows that the ima
                                  Dload  Upload   Total   Spent    Left  Speed
 100 19390  100 19390    0     0  1765k      0 --:--:-- --:--:-- --:--:-- 1893k
 ```
+
+## How to Obtain Plot/Image from the JOB
 Next, we must actually obtain the image and move it from the TACC Computer into our local machine. There are many ways and methods of doing this. The specific method we will use is through WinSCP which is an app transfer software that allows the user to connect to a different machine and transfer images and files directly through dragging and dropping into their own local machines.
 
 If you have not installed WinSCP, here is the link to install: `https://winscp.net/eng/download.php`
