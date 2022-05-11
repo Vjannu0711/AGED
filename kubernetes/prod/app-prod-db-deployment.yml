@@ -2,20 +2,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-deployment
+  name: aged-db-deployment
   labels:
-    app: hello-app
+    app: aged-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-app
+      app: aged-db
   template:
     metadata:
       labels:
-        app: hello-app
+        app: aged-db
     spec:
       containers:
-        - name: hellos
-          image: ubuntu:18.04
-          command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        - name: aged-db
+          image: redis:6
+          ports:
+          - name: http
+            image: redis:6
+            ports:
+            - name: aged-db
+              containerPort: 6379
+            volumeMounts:
+              - name: read
+                mountPath: "/read"
+      volumes:
+      - name: read
+        persistentVolumeClaim:
+          claimName: read

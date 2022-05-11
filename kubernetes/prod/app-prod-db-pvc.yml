@@ -1,28 +1,14 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: hello-pvc-deployment
+  name: read
   labels:
-    app: hello-pvc-app
+    app: aged-redis  
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: hello-pvc-app
-  template:
-    metadata:
-      labels:
-        app: hello-pvc-app
-    spec:
-      containers:
-        - name: hellos
-          image: ubuntu:18.04
-          command: ['sh', '-c', 'echo "Hello, Kubernetes!" >> /data/out.txt && sleep 3600']
-          volumeMounts:
-          - name: hello-<username>-data
-            mountPath: "/data"
-      volumes:
-      - name: hello-<username>-data
-        persistentVolumeClaim:
-          claimName: hello-<username>-data
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Gi

@@ -19,4 +19,9 @@ spec:
         - name: aged-api
           imagePullPolicy: Always
           image: jbolivar101/app-api:0.1
-          command: ['python3', 'app.py']
+          env:
+          - name: REDIS_IP
+            value: 127.        #PLUG IN REDIS_IP FROM OS
+          ports:
+          - name: http
+            containerPort: 5000
