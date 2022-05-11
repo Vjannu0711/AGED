@@ -29,10 +29,13 @@ flask run -p 5000
 ```
 
 ## Description of Outputs:
+
 Input: `curl localhost:5004/read -X POST`
+
 Output: `Data gathered`
 
 Input: `curl localhost:5004/countries/Italy/2005`
+
 Output:
 ```
 {
