@@ -219,8 +219,9 @@ If you have not installed WinSCP, here is the link to install: `https://winscp.n
 1) Follow the installation instructions as shown on the website. Once it has successfully installed, open up the app.
 2) You will immediately see a pop up window with a "Session" section where you will enter your user credentials for logging into TACC. Connect to isp02.tacc.utexas.edu in port 22 with the SFTP protocol. Hit enter and then you will be prompted to enter your Password and TACC Token.
 3) You will then successfully enter your TACC Computer where you will be able to simply move into your directory where you have your image and API and then drag and drop the image (output.png) into your local machine.
-4) You can then open up File Explorer to see that the image has been successfully moved to your local machine.
-5) Click and open the image and you will see a visualization of the changing trend over time of the job that you submitted.
+![machinemove](https://user-images.githubusercontent.com/69823871/167897983-9b973bae-0ba1-4f87-a281-ee8166dace64.png)
+5) You can then open up File Explorer to see that the image has been successfully moved to your local machine.
+6) Click and open the image and you will see a visualization of the changing trend over time of the job that you submitted.
 
 Here is an example of what our output.png looks like based on the example job that we had submitted:
 
