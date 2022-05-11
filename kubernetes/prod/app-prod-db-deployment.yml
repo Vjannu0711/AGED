@@ -20,13 +20,11 @@ spec:
           image: redis:6
           ports:
           - name: http
-            image: redis:6
+            containerPort: 6379
             ports:
-            - name: aged-db
-              containerPort: 6379
-            volumeMounts:
-              - name: read
-                mountPath: "/read"
+          volumeMounts:
+            - name: read
+              mountPath: "/read"
       volumes:
       - name: read
         persistentVolumeClaim:
