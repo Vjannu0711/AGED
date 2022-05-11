@@ -185,3 +185,13 @@ Output for this command should look something like this which shows that the ima
                                  Dload  Upload   Total   Spent    Left  Speed
 100 19390  100 19390    0     0  1765k      0 --:--:-- --:--:-- --:--:-- 1893k
 ```
+Next, we must actually obtain the image and move it from the TACC Computer into our local machine. There are many ways and methods of doing this. The specific method we will use is through WinSCP which is an app transfer software that allows the user to connect to a different machine and transfer images and files directly through dragging and dropping into their own local machines.
+
+If you have not installed WinSCP, here is the link to install: `https://winscp.net/eng/download.php`
+
+1) Follow the installation instructions as shown on the website. Once it has successfully installed, open up the app.
+2) You will immediately see a pop up window with a "Session" section where you will enter your user credentials for logging into TACC. Connect to isp02.tacc.utexas.edu in port 22 with the SFTP protocol. Hit enter and then you will be prompted to enter your Password and TACC Token.
+3) You will then successfully enter your TACC Computer where you will be able to simply move into your directory where you have your image and API and then drag and drop the image (output.png) into your local machine.
+4) You can then open up File Explorer to see that the image has been successfully moved to your local machine.
+5) Click and open the image and you will see a visualization of the changing trend over time of the job that you submitted.
+
