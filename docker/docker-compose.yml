@@ -1,0 +1,22 @@
+---
+version: "3"
+
+services:
+    gen-data:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile-gen
+        image: jbolivar101/app-api:1.0
+        volumes:
+            - ./test:/data
+        user: "874023:823583"
+        command: app.py /read
+    analyze-data:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile-analysis
+        image: jbolivar101/app-api:1.0
+        volumes:
+            - ./test:/data
+        command: app.py /read
+...
