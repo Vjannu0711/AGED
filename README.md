@@ -139,6 +139,28 @@ Output:
   ```
 We can see above the change in the population from 1900-2020 for the country Afghanistan. This route allows you to take any of the 119 energy statistics for any of the countries and see the change over time year-by-year.
 
+Let's say you wanted to change or update a certain value in the database.
+Input: `curl localhost:5004/update/Canada/2003/wind_energy_per_capita/200 -X PUT`
+Here I am changing the Wind Energy Per Capita statistic to the value 200 for the country Canada in the year 2003.
+We will now get confirmation that the specific field has been updated.
+Output: `The new value has been added to the specified field.`
+
+We can verify that this has indeed been done by simply typing a route such as: `curl localhost:5004/countries/Canada/2003`
+
+Output:
+```
+  "iso_code": "CAN",
+  "country": "Canada",
+  "year": "2003",
+  "coal_prod_change_pct": "-7.149",
+  ........
+  "wind_cons_change_twh": "0.769",
+  "wind_consumption": "1.88",
+  "wind_elec_per_capita": "26.232",
+  "wind_energy_per_capita": "200"
+```
+We can see that the statistic has been successfully changed!
+
 ## How to Submit a Job:
 Input: `curl localhost:5004/jobs`
 
