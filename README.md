@@ -309,6 +309,7 @@ Another easier method of obtaining the image is by simply opening up another ter
 
 You can then type `ls -l` to see where the file is located in your local machine. You can then open up File Explorer and open up the image.
 
+## Visualization and Interpretation
 Here is another example of a job input and the resulting plot from this job:
 `curl localhost:5004/jobs -X POST -d '{"country":"United States", "field":"renewables_consumption", "start":"1970", "end":"20
 20"}' -H "Content-Type: application/json"`
