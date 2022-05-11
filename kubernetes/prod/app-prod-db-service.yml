@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aged-db--service
+  name: aged-db-service
 spec:
   type: ClusterIP
   selector:
