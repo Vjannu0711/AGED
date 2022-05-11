@@ -232,7 +232,7 @@ Output:
 ```
 We can see that the statistic has been successfully changed!
 
-## How to Submit a Job:
+## How to Submit a JOB:
 Input: `curl localhost:5004/jobs`
 
 Output: 
