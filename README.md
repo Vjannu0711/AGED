@@ -140,6 +140,7 @@ Output:
 
 ## How to Submit a Job:
 Input: `curl localhost:5004/jobs`
+
 Output: 
 ```
 To submit a job, do the following:
@@ -147,6 +148,7 @@ curl localhost:5004/jobs -X POST -d '{"country":<country>, "field":<field>, "sta
 ```
 
 Example Input: `curl localhost:5004/jobs -X POST -d '{"country":"Spain", "field":"gdp", "start":"2000", "end":"2008"}' -H "Content-Type: application/json"`
+
 Output:
 ```
 {
@@ -176,6 +178,7 @@ Output:
 As we can see above, it says that the job has "finished". Now we must obtain the image of our desired visualization plot by running the command below:
 `curl localhost:5004/download/68005b49-25c1-42fc-89be-e3e9867121aa >output.png`
 Note that we pasted the same job "id" as above.
+
 Output for this command should look something like this which shows that the image has been created:
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
