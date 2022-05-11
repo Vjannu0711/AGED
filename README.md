@@ -196,4 +196,5 @@ If you have not installed WinSCP, here is the link to install: `https://winscp.n
 5) Click and open the image and you will see a visualization of the changing trend over time of the job that you submitted.
 
 Here is an example of what our output.png looks like based on the example job that we had submitted:
+
 ![output](https://user-images.githubusercontent.com/69823871/167892922-7bb239d7-32b1-48e3-b1e5-85e68ea1ddca.png)
