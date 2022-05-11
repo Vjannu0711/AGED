@@ -21,7 +21,7 @@ spec:
           image: jbolivar101/app-api:0.1
           env:
           - name: REDIS_IP
-            value: 172.17.0.4        #UNSURE 
+            value: "10.111.152.210"
           ports:
           - name: http
             containerPort: 5000
