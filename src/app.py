@@ -23,7 +23,7 @@ def ask_help():
     """
 
     logging.info("Instructions for each route is being displayed")
-    describe = "ISS Sighting Location\n"
+    describe = "AGED\n"
     describe += "/help                                                  (GET) Information on how to interact with the application \n"
     describe += "/read                                                  (POST) Transfer data from file\n"
     describe += "/countries                                             (GET) All Countries from the data set\n"
