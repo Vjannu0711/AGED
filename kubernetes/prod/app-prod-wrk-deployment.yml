@@ -21,4 +21,4 @@ spec:
           image: jbolivar101/aged-wrk:0.1
           env:
           - name: REDIS_IP
-            value: 127.1        #GET REAL VALUE FOR REDIS_IP
+            value: 172.17.0.4        #UNSURE

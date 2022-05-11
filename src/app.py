@@ -32,6 +32,7 @@ def ask_help():
     describe += "/create/<country>/<year>                               (POST) Create new country and year, adding it to data set\n"
     describe += "/updata/<country>/<year>/<field>/<newvalue>            (PUT) Updates current country, year, and field with new data point\n"
     describe += "/delete/<country>/<year>                               (DELETE) Delete all information about a specific country and year\n"
+    describe += redis_ip
     return describe
 
 # READ THE DATA AND LOAD TO REDIS
