@@ -24,8 +24,8 @@ def execute_job(jid):
         x_vals.append(int(year))
 
     plt.xlabel("Year")
-    #plt.title(f"{field} Over Time in {country}")
-    #plt.ylabel(f"{field}")
+    plt.title("Trend Change Over Time")
+    plt.ylabel("Field")
     plt.plot(x_vals, y_vals, 'b--')
     plt.savefig('/output_image.png')
     
