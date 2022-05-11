@@ -95,6 +95,7 @@ Before you run any of the routes after `/read`, you must run this command `curl 
 You will get this message confirming that the data has been successfully gathered and loaded into Redis: `Data gathered`. You can then simply type `curl localhost:5004/<route>` to run any of the routes listed above.
 
 *Important Note*
+
 You can view the list of available fields to obtain information from here at this link and by clicking "View More": https://www.kaggle.com/datasets/pralabhpoudel/world-energy-consumption
 
 ## Description of Outputs:
