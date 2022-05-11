@@ -316,4 +316,4 @@ Here is another example of a job input and the resulting plot from this job:
 
 ![output2](https://user-images.githubusercontent.com/69823871/167905267-2c1f25e6-fc10-4bdf-b63c-bb8c07083722.png)
 
-We can see the overall change in the consumption of renewables of the United States from 1970 to 2020 measured in terawatt-hours. We can see that in recent years, the energy consumption from renewable energy has soared rapidly. One can generate an insight that although the US still has an energy market dominated by mostly oil and gas companies, there is a growing push and demand for clean and reliable renewable energy sources in the US.
+The plot above generated from the job request shows the overall change in the consumption of renewables of the United States from 1970 to 2020 measured in terawatt-hours. We can see that in recent years, the energy consumption from renewable energy has soared rapidly. One can generate an insight that although the US still has an energy market dominated by mostly oil and gas companies, there is a growing push and demand for clean and reliable renewable energy sources in the US.
