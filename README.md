@@ -281,7 +281,10 @@ Output for this command should look something like this which shows that the ima
 ```
 
 ## How to Obtain Plot/Image from the JOB
-Next, we must actually obtain the image and move it from the TACC Computer into our local machine. There are many ways and methods of doing this. One specific method we can use is through WinSCP which is an app transfer software that allows the user to connect to a different machine and transfer images and files directly through dragging and dropping into their own local machines.
+Next, we must actually obtain the image and move it from the TACC Computer into our local machine. There are many ways and methods of doing this. 
+
+**Option I: WinSCP**
+One specific method we can use is through WinSCP which is an app transfer software that allows the user to connect to a different machine and transfer images and files directly through dragging and dropping into their own local machines.
 
 If you have not installed WinSCP, here is the link to install: `https://winscp.net/eng/download.php`
 
@@ -297,6 +300,8 @@ Here is an example of what our output.png looks like based on the example job th
 ![output](https://user-images.githubusercontent.com/69823871/167892922-7bb239d7-32b1-48e3-b1e5-85e68ea1ddca.png)
 
 We can see the change in the total real gross domestic product, inflation-adjusted GDP of the country Spain from 2000 to 2008. The Y axis is the trend which in this case is the GDP. The X axis shows the time in years.
+
+**Option II: SCP**
 
 Another easier method of obtaining the image is by simply opening up another terminal on your local machine, obtaining the file path of the image in the TACC machine by typing `pwd` and copying that path into this command:
 `scp vjannu@isp02.tacc.utexas.edu:<pathonTACCcomputer>/output.png .`
