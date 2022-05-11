@@ -136,3 +136,49 @@ Output:
   "2019 - 38041756.0",
   "2020 - No Data"
   ```
+
+
+## How to Submit a Job:
+Input: `curl localhost:5004/jobs`
+Output: 
+```
+To submit a job, do the following:
+curl localhost:5004/jobs -X POST -d '{"country":<country>, "field":<field>, "start":<year>, "end":<year>}' -H "Content-Type: application/json"
+```
+
+Example Input: `curl localhost:5004/jobs -X POST -d '{"country":"Spain", "field":"gdp", "start":"2000", "end":"2008"}' -H "Content-Type: application/json"`
+Output:
+```
+{
+  "id": "68005b49-25c1-42fc-89be-e3e9867121aa",
+  "datetime": "2022-05-11 15:15:36.249426",
+  "country": "Spain",
+  "field": "gdp",
+  "status": "submitted",
+  "start": "2000",
+  "end": "2008"
+}
+```
+Check the status of the job by copying and pasting the "id" number from the previous command's output:
+`curl localhost:5004/jobs/68005b49-25c1-42fc-89be-e3e9867121aa`
+Output:
+```
+{
+  "id": "68005b49-25c1-42fc-89be-e3e9867121aa",
+  "datetime": "2022-05-11 15:15:36.249426",
+  "country": "Spain",
+  "field": "gdp",
+  "status": "finished",
+  "start": "2000",
+  "end": "2008"
+}
+```
+As we can see above, it says that the job has "finished". Now we must obtain the image of our desired visualization plot by running the command below:
+`curl localhost:5004/download/68005b49-25c1-42fc-89be-e3e9867121aa >output.png`
+Note that we pasted the same job "id" as above.
+Output for this command should look something like this which shows that the image has been created:
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19390  100 19390    0     0  1765k      0 --:--:-- --:--:-- --:--:-- 1893k
+```
