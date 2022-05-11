@@ -10,11 +10,73 @@ In order to begin interacting with this API, we need to load the API successfull
 2) Once you have successfully ssh'ed into ISP on the TACC Computer server, please create a brand new directory by running this command: `mkdir <nameofdirectory>`
 3) Next, run this command to pull all of the relevant files for the API into your local machine: `git clone git@github.com:Vjannu0711/AGED.git`
 4) Hit `ls` after the machine shows that it has successfully loaded the files into the machine to check that all of the files are present in your directory on your machine.
-5) Next, we need to load and set up the Flask environment on our computer. Simply type the three commands into your command line terminal one-by-one in this order:
+5) Next, we need to load and set up the Flask and Docker environment and Redis database before we can run our API. This can all be done with one simple step: `make all`
+The output when running this command should look something like this confirming that the system and environment has been successfully set up:
 ```
-export FLASK_APP=app.py
-export FLASK_ENV=development
-flask run -p 5000
+docker stop "jbolivar"-db && docker rm -f "jbolivar"-db || true
+jbolivar-db
+jbolivar-db
+docker stop "jbolivar"-api && docker rm -f "jbolivar"-api || true
+jbolivar-api
+jbolivar-api
+docker stop "jbolivar"-wrk && docker rm -f "jbolivar"-wrk || true
+jbolivar-wrk
+jbolivar-wrk
+docker pull redis:6
+...
+docker build -t "jbolivar"101/"app"-api:"0.1" \
+                     -f docker/Dockerfile.api \
+                     ./
+Sending build context to Docker daemon  125.3MB
+Step 1/8 : FROM python:3.9
+ ---> 745b54045d61
+Step 2/8 : COPY requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 098da3d336ec
+Step 3/8 : RUN pip install -r /app/requirements.txt
+ ---> Using cache
+ ---> e09fab07fb10
+Step 4/8 : COPY owid-energy-data.csv /app/
+ ---> Using cache
+ ---> 6768f48e8593
+Step 5/8 : COPY ./src/* /app/
+ ---> Using cache
+ ---> 1cec7a85d61f
+Step 6/8 : WORKDIR /app
+ ---> Using cache
+ ---> 2110286dc8cb
+Step 7/8 : ENTRYPOINT ["python"]
+ ---> Using cache
+ ---> 0b571a748e7f
+Step 8/8 : CMD ["app.py"]
+ ---> Using cache
+ ---> 3c28ea5730a3
+Successfully built 3c28ea5730a3
+Successfully tagged jbolivar101/app-api:0.1
+docker build -t "jbolivar"101/"app"-wrk:"0.1" \
+                     -f docker/Dockerfile.wrk \
+                     ./
+Sending build context to Docker daemon  125.3MB
+Step 1/6 : FROM python:3.9
+ ---> 745b54045d61
+Step 2/6 : RUN pip3 install redis                  hotqueue==0.2.8
+       matplotlib==3.3.4                  Flask==2.0.3
+ ---> Using cache
+ ---> 80b2e4ae2f2b
+Step 3/6 : COPY ./src/* /app/
+ ---> Using cache
+ ---> 1f70990edf2c
+Step 4/6 : WORKDIR /app/
+ ---> Using cache
+ ---> 6c1757e8a459
+Step 5/6 : ENTRYPOINT ["python3"]
+ ---> Using cache
+ ---> dbb5fb7be7e1
+Step 6/6 : CMD ["worker.py"]
+ ---> Using cache
+ ---> 7af5f484d7ef
+Successfully built 7af5f484d7ef
+Successfully tagged jbolivar101/app-wrk:0.1
 ```
 
 ## How to Interact with API:
