@@ -297,3 +297,10 @@ Here is an example of what our output.png looks like based on the example job th
 ![output](https://user-images.githubusercontent.com/69823871/167892922-7bb239d7-32b1-48e3-b1e5-85e68ea1ddca.png)
 
 We can see the change in the total real gross domestic product, inflation-adjusted GDP of the country Spain from 2000 to 2008. The Y axis is the trend which in this case is the GDP. The X axis shows the time in years.
+
+Here is another example of a job input and the resulting plot from this job:
+`curl localhost:5004/jobs -X POST -d '{"country":"United States", "field":"renewables_consumption", "start":"1970", "end":"20
+20"}' -H "Content-Type: application/json"`
+![output2](https://user-images.githubusercontent.com/69823871/167905267-2c1f25e6-fc10-4bdf-b63c-bb8c07083722.png)
+
+We can see the overall change in the consumption of renewables of the United States from 1970 to 2020 measured in terawatt-hours.
