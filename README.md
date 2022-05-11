@@ -1,5 +1,4 @@
 # ANALYSIS OF GLOBAL ENERGY DEMAND (AGED)
-
 ![energy](https://user-images.githubusercontent.com/69823871/167898548-18ad2b7d-a9f7-4cac-aacf-d933dfc59a9f.jpg)
 
 ## Description:
