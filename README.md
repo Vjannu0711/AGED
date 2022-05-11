@@ -28,11 +28,10 @@ flask run -p 5000
 /delete/<country>/<year>                               (DELETE) Delete all information about a specific country and year
 ```
 
+Before you run any of the routes after `/read`, you must run this command `curl localhost:5004/read -X POST` in order to read the data and load it into Redis database.
+You will get this message confirming that the data has been successfully gathered and loaded into Redis: `Data gathered`
+
 ## Description of Outputs:
-
-Input: `curl localhost:5004/read -X POST`
-
-Output: `Data gathered`
 
 Input: `curl localhost:5004/countries/Italy/2005`
 
@@ -86,6 +85,7 @@ Output:
   ```
   
   Input: `curl localhost:5004/trend/Afghanistan/population`
+  
   Output:
   ```
   [
