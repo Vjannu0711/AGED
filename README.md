@@ -321,3 +321,49 @@ Here is another example of a job input and the resulting plot from this job:
 ![output2](https://user-images.githubusercontent.com/69823871/167905267-2c1f25e6-fc10-4bdf-b63c-bb8c07083722.png)
 
 The plot above generated from the job request shows the overall change in the consumption of renewables of the United States from 1970 to 2020 measured in terawatt-hours. We can see that in recent years, the energy consumption from renewable energy has soared rapidly. One can generate an insight that although the US still has an energy market dominated by mostly oil and gas companies, there is a growing push and demand for clean and reliable renewable energy sources in the US.
+
+## K8S
+1) First the user must log into the k8s domain by using `ssh <username>@coe332-k8s.tacc.cloud` and is now able to utilize its functions
+2) Copy over all the kubernetes files from the repo into a new folder within k8s
+3) You can begin applying all yml files in order to make sure that they are building on top of each other:
+```BASH
+kubectl apply -f app-prod-db-service.yml
+kubectl apply -f app-prod-db-pvc.yml
+kubectl apply -f app-prod-db-deployment.yml
+kubectl apply -f app-prod-api-service.yml
+kubectl apply -f app-prod-api-deployment.yml
+kubectl apply -f app-prod-wrk-deployment.yml
+```
+4) To check that the pods are fully functioning along with the other files input `kubectl get all -o wide`
+If its correct it should output:
+```BASH
+NAME                                       READY   STATUS    RESTARTS   AGE    IP             NODE               NOMINATED NODE   READINESS GATES
+pod/aged-api-deployment-595b94fd89-982c8   1/1     Running   0          4m5s   10.244.0.240   kube-1.novalocal   <none>           <none>
+pod/aged-db-deployment-859df4987f-8rxkw    1/1     Running   0          75m    10.244.0.217   kube-1.novalocal   <none>           <none>
+pod/aged-wrk-deployment-649dc75957-fg7cs   1/1     Running   0          23s    10.244.0.54    kube-1.novalocal   <none>           <none>
+pod/aged-wrk-deployment-649dc75957-sccgf   1/1     Running   0          23s    10.244.0.57    kube-1.novalocal   <none>           <none>
+
+NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/aged-api-service   ClusterIP   10.98.234.48     <none>        5000/TCP   40m   app=aged-api
+service/aged-db-service    ClusterIP   10.111.152.210   <none>        6379/TCP   70m   app=aged-db
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES                    SELECTOR
+deployment.apps/aged-api-deployment   1/1     1            1           4m5s   aged-api     jbolivar101/app-api:0.1   app=aged-api
+deployment.apps/aged-db-deployment    1/1     1            1           75m    aged-db      redis:6                   app=aged-db
+deployment.apps/aged-wrk-deployment   2/2     2            2           23s    aged-wrk     jbolivar101/app-wrk:0.1   app=aged-wrk
+
+NAME                                             DESIRED   CURRENT   READY   AGE    CONTAINERS   IMAGES                    SELECTOR
+replicaset.apps/aged-api-deployment-595b94fd89   1         1         1       4m5s   aged-api     jbolivar101/app-api:0.1   app=aged-api,pod-template-hash=595b94fd89
+replicaset.apps/aged-db-deployment-859df4987f    1         1         1       75m    aged-db      redis:6                   app=aged-db,pod-template-hash=859df4987f
+replicaset.apps/aged-wrk-deployment-649dc75957   2         2         2       23s    aged-wrk     jbolivar101/app-wrk:0.1   app=aged-wrk,pod-template-hash=649dc75957
+```
+
+
+
+
+
+
+
+
+
+

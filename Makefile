@@ -1,6 +1,6 @@
-NSPACE="jbolivar"
-APP="app"
-VER="0.1"
+NSPACE=jbolivar
+APP=app
+VER=0.1
 RPORT="6789"
 FPORT="5004"
 UID="874023"
