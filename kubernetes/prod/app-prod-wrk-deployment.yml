@@ -18,7 +18,7 @@ spec:
       containers:
         - name: aged-wrk
           imagePullPolicy: Always
-          image: jbolivar101/aged-wrk:0.1
+          image: jbolivar101/app-wrk:0.1
           env:
           - name: REDIS_IP
-            value: 172.17.0.4        #UNSURE
+            value: "10.111.152.210"
