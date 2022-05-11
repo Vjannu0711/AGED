@@ -199,3 +199,5 @@ If you have not installed WinSCP, here is the link to install: `https://winscp.n
 Here is an example of what our output.png looks like based on the example job that we had submitted:
 
 ![output](https://user-images.githubusercontent.com/69823871/167892922-7bb239d7-32b1-48e3-b1e5-85e68ea1ddca.png)
+
+We can see the change in the GDP of the country Spain from 2000 to 2008. The Y axis is the trend which in this case is the GDP. The X axis shows the time in years.
