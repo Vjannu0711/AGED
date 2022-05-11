@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: read
   labels:
-    app: aged-redis  
+    app: aged-redis
 spec:
   accessModes:
     - ReadWriteOnce
