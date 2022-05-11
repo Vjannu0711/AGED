@@ -16,7 +16,7 @@ export FLASK_ENV=development
 flask run -p 5000
 ```
 
-## How to Interact with API
+## How to Interact with API:
 ```
 /help                                                  (GET) Information on how to interact with the application
 /read                                                  (POST) Transfer data from file
@@ -27,3 +27,110 @@ flask run -p 5000
 /update/<country>/<year>/<field>/<newvalue>            (PUT) Updates current country, year, and field with new data point
 /delete/<country>/<year>                               (DELETE) Delete all information about a specific country and year
 ```
+
+## Description of Outputs:
+Input: `curl localhost:5004/read -X POST`
+Output: `Data gathered`
+
+Input: `curl localhost:5004/countries/Italy/2005`
+Output:
+```
+{
+  "iso_code": "ITA",
+  "country": "Italy",
+  "year": "2005",
+  "coal_prod_change_pct": "-3.061",
+  "coal_prod_change_twh": "-0.023",
+  "gas_prod_change_pct": "-6.864",
+  "gas_prod_change_twh": "-8.536",
+  "oil_prod_change_pct": "11.739",
+  "oil_prod_change_twh": "7.466",
+  "energy_cons_change_pct": "0.16",
+  "energy_cons_change_twh": "3.489",
+  "biofuel_share_elec": "1.579",
+  "biofuel_elec_per_capita": "80.129",
+  "biofuel_cons_change_pct": "-29.815",
+  "biofuel_share_energy": "0.088",
+  "biofuel_cons_change_twh": "-0.821",
+  "biofuel_consumption": "1.933",
+  "biofuel_cons_per_capita": "33.163",
+  "carbon_intensity_elec": "399.0",
+  "coal_share_elec": "14.747",
+ ........................... (more info)
+  "population": "58281212.0",
+  "primary_energy_consumption": "2190.923",
+  "renewables_elec_per_capita": "830.971",
+  "renewables_share_elec": "16.377",
+  "renewables_cons_change_pct": "-11.008",
+  "renewables_share_energy": "6.035",
+  "renewables_cons_change_twh": "-16.355",
+  "renewables_consumption": "132.228",
+  "renewables_energy_per_capita": "2268.787",
+  "solar_share_elec": "0.01",
+  "solar_cons_change_pct": "6.22",
+  "solar_share_energy": "0.004",
+  "solar_cons_change_twh": "0.005",
+  "solar_consumption": "0.083",
+  "solar_elec_per_capita": "0.515",
+  "solar_energy_per_capita": "1.431",
+  "wind_share_elec": "0.791",
+  "wind_cons_change_pct": "26.051",
+  "wind_share_energy": "0.288",
+  "wind_cons_change_twh": "1.303",
+  "wind_consumption": "6.302",
+  "wind_elec_per_capita": "40.15",
+  "wind_energy_per_capita": "108.137"
+  ```
+  
+  Input: `curl localhost:5004/trend/Afghanistan/population`
+  Output:
+  ```
+  [
+  "1900 - 4832414.0",
+  "1901 - 4879685.0",
+  "1902 - 4935122.0",
+  "1903 - 4998861.0",
+  "1904 - 5063419.0",
+  "1905 - 5128808.0",
+  "1906 - 5195038.0",
+  "1907 - 5262120.0",
+  "1908 - 5330065.0",
+  "1909 - 5467828.0",
+  "1910 - 5681487.0",
+  "1911 - 5977589.0",
+  "1912 - 6363186.0",
+  "1913 - 6845878.0",
+  "1914 - 7365181.0",
+  "1915 - 7923871.0",
+  "1916 - 8524936.0",
+  "1917 - 9171589.0",
+  "1918 - 9875230.0",
+  "1919 - 10338650.0",
+......................
+  "1995 - 18110662.0",
+  "1996 - 18853444.0",
+  "1997 - 19357126.0",
+  "1998 - 19737770.0",
+  "1999 - 20170848.0",
+  "2000 - 20779958.0",
+  "2001 - 21606992.0",
+  "2002 - 22600774.0",
+  "2003 - 23680872.0",
+  "2004 - 24726690.0",
+  "2005 - 25654274.0",
+  "2006 - 26433058.0",
+  "2007 - 27100542.0",
+  "2008 - 27722282.0",
+  "2009 - 28394806.0",
+  "2010 - 29185512.0",
+  "2011 - 30117410.0",
+  "2012 - 31161378.0",
+  "2013 - 32269592.0",
+  "2014 - 33370804.0",
+  "2015 - 34413600.0",
+  "2016 - 35383028.0",
+  "2017 - 36296108.0",
+  "2018 - 37171920.0",
+  "2019 - 38041756.0",
+  "2020 - No Data"
+  ```
