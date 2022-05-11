@@ -82,6 +82,7 @@ Output:
   "wind_elec_per_capita": "40.15",
   "wind_energy_per_capita": "108.137"
   ```
+  We can see from above all of the energy statistics for the country Italy in the year 2005.
   
   Input: `curl localhost:5004/trend/Afghanistan/population`
   
@@ -136,7 +137,7 @@ Output:
   "2019 - 38041756.0",
   "2020 - No Data"
   ```
-
+We can see above the change in the population from 1900-2020 for the country Afghanistan. This route allows you to take any of the 119 energy statistics for any of the countries and see the change over time year-by-year.
 
 ## How to Submit a Job:
 Input: `curl localhost:5004/jobs`
