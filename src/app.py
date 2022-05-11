@@ -29,9 +29,9 @@ def ask_help():
     describe += "/countries                                             (GET) All Countries from the data set\n"
     describe += "/countries/<country>/year                              (GET) All information about a specific Country in a specific year\n"
     describe += "/trend/<country>/<field>                               (GET) All information on a specific field for a specific country\n"
-    describe += "/create/<country>/<year>                               (GET) Create new country and year, adding it to data set\n"
-    describe += "/updata/<country>/<year>/<field>/<newvalue>            (GET) Updates current country, year, and field with new data point\n"
-    describe += "/delete/<country>/<year>                               (GET) Delete all information about a specific country and year\n"
+    describe += "/create/<country>/<year>                               (POST) Create new country and year, adding it to data set\n"
+    describe += "/updata/<country>/<year>/<field>/<newvalue>            (PUT) Updates current country, year, and field with new data point\n"
+    describe += "/delete/<country>/<year>                               (DELETE) Delete all information about a specific country and year\n"
     return describe
 
 # READ THE DATA AND LOAD TO REDIS
