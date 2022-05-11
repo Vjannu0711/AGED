@@ -14,6 +14,26 @@ rd = redis.Redis(host=redis_ip, port=6379, db=0, decode_responses=True)
 # SET UP FLASK
 app = Flask(__name__)
 
+@app.route('/help', methods=['GET'])
+def ask_help():
+    """
+    This path outputs the instructions and descriptions for the flask paths
+    Args: N/A
+    Returns: Returns a string 'Describe' accumulated from many strings
+    """
+
+    logging.info("Instructions for each route is being displayed")
+    describe = "ISS Sighting Location\n"
+    describe += "/help                                                  (GET) Information on how to interact with the application \n"
+    describe += "/read                                                  (POST) Transfer data from file\n"
+    describe += "/countries                                             (GET) All Countries from the data set\n"
+    describe += "/countries/<country>/year                              (GET) All information about a specific Country in a specific year\n"
+    describe += "/trend/<country>/<field>                               (GET) All information on a specific field for a specific country\n"
+    describe += "/create/<country>/<year>                               (GET) Create new country and year, adding it to data set\n"
+    describe += "/updata/<country>/<year>/<field>/<newvalue>            (GET) Updates current country, year, and field with new data point\n"
+    describe += "/delete/<country>/<year>                               (GET) Delete all information about a specific country and year\n"
+    return describe
+
 # READ THE DATA AND LOAD TO REDIS
 @app.route('/read', methods=['POST'])
 def read():
