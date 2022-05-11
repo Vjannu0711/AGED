@@ -37,7 +37,6 @@ Input: `curl localhost:5004/countries/Italy/2005`
 
 Output:
 ```
-{
   "iso_code": "ITA",
   "country": "Italy",
   "year": "2005",
