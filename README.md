@@ -16,4 +16,14 @@ export FLASK_ENV=development
 flask run -p 5000
 ```
 
-## How to Interact with API:
+## How to Interact with API
+```
+/help                                                  (GET) Information on how to interact with the application
+/read                                                  (POST) Transfer data from file
+/countries                                             (GET) All Countries from the data set
+/countries/<country>/year                              (GET) All information about a specific Country in a specific year
+/trend/<country>/<field>                               (GET) All information on a specific field for a specific country
+/create/<country>/<year>                               (POST) Create new country and year, adding it to data set
+/updata/<country>/<year>/<field>/<newvalue>            (PUT) Updates current country, year, and field with new data point
+/delete/<country>/<year>                               (DELETE) Delete all information about a specific country and year
+```
