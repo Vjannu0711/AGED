@@ -311,8 +311,7 @@ You can then type `ls -l` to see where the file is located in your local machine
 
 ## Visualization and Interpretation
 Here is another example of a job input and the resulting plot from this job:
-`curl localhost:5004/jobs -X POST -d '{"country":"United States", "field":"renewables_consumption", "start":"1970", "end":"20
-20"}' -H "Content-Type: application/json"`
+`curl localhost:5004/jobs -X POST -d '{"country":"United States", "field":"renewables_consumption", "start":"1970", "end":"2020"}' -H "Content-Type: application/json"`
 
 ![output2](https://user-images.githubusercontent.com/69823871/167905267-2c1f25e6-fc10-4bdf-b63c-bb8c07083722.png)
 
