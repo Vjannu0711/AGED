@@ -358,12 +358,20 @@ replicaset.apps/aged-db-deployment-859df4987f    1         1         1       75m
 replicaset.apps/aged-wrk-deployment-649dc75957   2         2         2       23s    aged-wrk     jbolivar101/app-wrk:0.1   app=aged-wrk,pod-template-hash=649dc75957
 ```
 
+## How to Test API:
 
+You can test the API by simply typing `pytest` in the terminal to make sure that everything is working as intended.
 
+Output:
+```
+==================================== test session starts ====================================
+platform linux -- Python 3.6.8, pytest-7.0.1, pluggy-1.0.0
+rootdir: /home/vjannu11/coe332final/test
+collected 4 items
 
+test_flask.py ....                                                                    [100%]
 
-
-
-
+==================================== 4 passed in 34.42s =====================================
+```
 
 
