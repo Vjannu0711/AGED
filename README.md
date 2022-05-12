@@ -13,7 +13,8 @@ In order to begin interacting with this API, we need to load the API successfull
 3) Next, run this command to pull all of the relevant files for the API into your local machine: `git clone git@github.com:Vjannu0711/AGED.git`
 4) Hit `ls` after the machine shows that it has successfully loaded the files into the machine to check that all of the files are present in your directory on your machine.
 5) Next, we need to load and set up the Flask and Docker environment and Redis database before we can run our API. This can all be done with one simple step: `make all`
-The output when running this command should look something like this confirming that the system and environment has been successfully set up:
+6) We must push our two files onto docker, `docker push jbolivar101/app-api:0.1` and `docker push jbolivar101/app-wrk:0.1`, the user is able to use their own username if they change the username in Makefile
+7) The `push` output should be within your docker hub and the `make` output should look something like this confirming that the system and environment has been successfully set up:
 ```
 docker stop "jbolivar"-db && docker rm -f "jbolivar"-db || true
 jbolivar-db
